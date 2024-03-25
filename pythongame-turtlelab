@@ -1,0 +1,112 @@
+import turtle
+import random
+
+#global variable to keep track of days/moves left
+days_left = 30
+
+#setting function to draw the four seas of One Piece
+def seas():
+    turtle.speed(0)
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.pensize(2)
+    turtle.goto(0, 200) # north blue
+    turtle.pendown()
+    turtle.begin_fill()
+    turtle.pencolor("aquamarine")
+    turtle.fillcolor("aquamarine")
+    turtle.circle(100)
+    turtle.end_fill()
+    turtle.penup()
+    
+    turtle.goto(350, 0) # east blue
+    turtle.pendown()
+    turtle.begin_fill()
+    turtle.circle(100)
+    turtle.end_fill()
+    turtle.penup()
+    
+    turtle.goto(0, -350) # south blue
+    turtle.pendown()
+    turtle.begin_fill()
+    turtle.circle(100)
+    turtle.end_fill()
+    turtle.penup()
+    
+    turtle.goto(-350, 0) # west blue
+    turtle.pendown()
+    turtle.begin_fill()
+    turtle.circle(100)
+    turtle.end_fill()
+    turtle.penup()
+    
+
+#setting function to place the pirate's starting place randomly
+def place_pirate():
+    turtle.speed(2)
+    turtle.showturtle()
+    turtle.shape("circle")
+    turtle.pencolor("red") 
+    turtle.fillcolor("goldenrod2")
+    turtle.pensize(10)
+    turtle.penup()
+    turtle_x = random.uniform(-100, 100)
+    turtle_y = random.uniform(-50, 50)
+    turtle.goto(turtle_x, turtle_y)
+    turtle.pendown()
+
+#setting function to move the pirate 
+def move():
+    global days_left
+    for i in range(days_left):
+        if days_left == 15:
+            turtle.textinput("You have 15 days left!", "Click OK or Cancel to continue on.")
+        if days_left == 7:
+            answer2 = turtle.textinput("One week left!", "Click OK to continue or Click Cancel to re-stock and try again another day.")
+            if answer2 == None or answer2 == "cancel":
+                turtle.textinput("Okay, until next time!", "You'll be King of the Pirates someday. Click Cancel to exit.")
+                turtle.reset()
+            
+        if days_left == 1:
+            turtle.textinput("One more day of supplies!", "Click OK to continue or Click Cancel to re-stock and try again another day.")
+            if answer2 == None or answer2 == "cancel":
+                turtle.textinput("Okay, until next time!", "You'll be King of the Pirates someday. Click Cancel to exit.")
+                turtle.reset()
+
+        move = turtle.textinput("Where are you going?", "(Enter forward, right, or left to find the One Piece!)")
+        
+        if move == "forward":
+            pixels = turtle.numinput("How many pixels forward?", "Choose a number between -450 to 450 to travel forward!")
+            turtle.forward(pixels)
+        elif move == "right":
+            turtle.right(90)
+        elif move == "left":
+            turtle.left(90)
+        else:
+            turtle.textinput("Invalid: Enter forward, right, or left!", "Click OK or Cancel to continue the journey!")
+        
+        days_left -= 1
+
+#setting function to check if the user has found the One Piece
+def one_piece():
+    global days_left
+    if turtle.distance(0, 200) <= 100 and turtle.distance(350, 0) <= 250 and turtle.distance(0, -350) <= 250 and turtle.distance(-350, 0) <= 250:
+        turtle.textinput("You've found the One Piece!", "You're the Pirate King!")
+    else:
+        answer = turtle.textinput("Out of supplies!", "Re-stock and try again?")
+        if answer == None or answer == "cancel" or days_left < 1:
+            turtle.textinput("Okay, until next time!", "You'll be King of the Pirates someday. Click Cancel to exit.")
+        else:
+            turtle.reset()
+
+#main function to run the game
+def main():
+    turtle.bgcolor("DodgerBlue3")
+    turtle.textinput("Travel all of the Blue Sea to reach the Grand Line and find the One Piece, the ultimate treasure!", "You have 30 days (moves) to search the four seas to find the Grand Line and get the One Piece before all the ship's supplies run out! Click OK to start!") 
+    seas()
+    place_pirate()
+    move()
+    one_piece()
+
+main()
+
