@@ -1,0 +1,40 @@
+# Flags to track if the pirate has entered each sea
+entered_north_blue = False
+entered_east_blue = False
+entered_south_blue = False
+entered_west_blue = False
+
+# Modified the move function to update the flags
+def move():
+    global days_left, entered_north_blue, entered_east_blue, entered_south_blue, entered_west_blue
+    # ... existing code ...
+    # Check if the pirate is in North Blue
+    if turtle.distance(0, 200) <= 100:
+        entered_north_blue = True
+    # Check if the pirate is in East Blue
+    if turtle.distance(350, 0) <= 100:
+        entered_east_blue = True
+    # Check if the pirate is in South Blue
+    if turtle.distance(0, -350) <= 100:
+        entered_south_blue = True
+    # Check if the pirate is in West Blue
+    if turtle.distance(-350, 0) <= 100:
+        entered_west_blue = True
+    # ... existing code ...
+
+# Modify the one_piece function to check the flags
+def one_piece():
+    global days_left, entered_north_blue, entered_east_blue, entered_south_blue, entered_west_blue
+    if entered_north_blue and entered_east_blue and entered_south_blue and entered_west_blue:
+        turtle.textinput("You've found the One Piece!", "You're the Pirate King!")
+        return True
+    else:
+        # ... existing code ...
+
+# Don't forget to reset the flags if the game is reset
+def reset_game():
+    global entered_north_blue, entered_east_blue, entered_south_blue, entered_west_blue
+    entered_north_blue = False
+    entered_east_blue = False
+    entered_south_blue = False
+    entered_west_blue = False
