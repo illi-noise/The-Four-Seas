@@ -1,6 +1,6 @@
 ## Collaboration project between Python students
 
-Turtle Python Game Project: Devil Fruit Game       ## Open to name changes
+Turtle Python Game Project: The Four Seas       ## Open to name changes
 
 "Travel all of the Blue Sea to reach the Grand Line and find the One Piece, the ultimate treasure!
 You have 30 days (moves) to search the four seas to find the Grand Line and get the One Piece before all the ship's supplies run out! Click OK to start!"
