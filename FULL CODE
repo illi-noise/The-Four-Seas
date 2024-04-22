@@ -88,6 +88,11 @@ def place_pirate():
 def move():
     global days_left
     for _ in range(days_left):
+        if days_left == 15:
+            turtle.textinput("Warning!", "You have only 15 moves left!")
+        elif days_left == 5:
+            turtle.textinput("Warning!", "You have only 5 moves left!")
+        
         move = turtle.textinput("Where are you going?", "(Enter forward, right, or left to find the One Piece!)")
         
         if move.lower() == "forward":
@@ -125,7 +130,7 @@ def move():
             one_piece()
             return
 
-    # When user does not trigger one_piece by 30 moves
+    # when user does not trigger one_piece by 30 moves
     answer = turtle.textinput("Out of supplies!", "Re-stock and try again?")
     if answer == None or answer == "cancel" or days_left < 1:
         turtle.textinput("Okay, until next time!", "You'll be King of the Pirates someday. Click Cancel to exit.")
