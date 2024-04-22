@@ -3,16 +3,16 @@
 import turtle
 import random
 
-#global variable to keep track of days/moves left
+# global variable to keep track of days/moves left
 days_left = 30
 
-#list to store user's visited seas
+# list to store user's visited seas
 visited_seas = [False] * 4
 
-#list to store the coordinates of the four seas (circles)
+# list to store the coordinates of the four seas (circles)
 seas_coordinates = [(0, 200), (350, 0), (0, -350), (-350, 0)]
 
-#function to draw a sea circle
+# function to draw a sea circle
 def draw_sea_circle(x, y):
     turtle.goto(x, y)
     turtle.pendown()
@@ -21,7 +21,7 @@ def draw_sea_circle(x, y):
     turtle.end_fill()
     turtle.penup()
 
-#function to draw the four seas of One Piece
+# function to draw the four seas of One Piece
 def draw_seas():
     turtle.speed(0)
     turtle.hideturtle()
@@ -46,31 +46,31 @@ def draw_seas():
     turtle.goto(seas_coordinates[3])
     draw_sea_circle(seas_coordinates[3][0], seas_coordinates[3][1])
 
-#function to check if the turtle is within the range of North Blue
+# function to check if the turtle is within the range of North Blue
 def check_north_blue(xpos, ypos):
     circle_x, circle_y = seas_coordinates[0]
     circle_range = ((xpos - circle_x) ** 2 + (ypos - circle_y) ** 2) ** 0.5
     return circle_range <= 200
 
-#function to check if the turtle is within the range of East Blue
+# function to check if the turtle is within the range of East Blue
 def check_east_blue(xpos, ypos):
     circle_x, circle_y = seas_coordinates[1]
     circle_range = ((xpos - circle_x) ** 2 + (ypos - circle_y) ** 2) ** 0.5
     return circle_range <= 70
 
-#function to check if the turtle is within the range of South Blue
+# function to check if the turtle is within the range of South Blue
 def check_south_blue(xpos, ypos):
     circle_x, circle_y = seas_coordinates[2]
     circle_range = ((xpos - circle_x) ** 2 + (ypos - circle_y) ** 2) ** 0.5
     return circle_range <= 200
 
-#function to check if the turtle is within the range of West Blue
+# function to check if the turtle is within the range of West Blue
 def check_west_blue(xpos, ypos):
     circle_x, circle_y = seas_coordinates[3]
     circle_range = ((xpos - circle_x) ** 2 + (ypos - circle_y) ** 2) ** 0.5
     return circle_range <= 200
 
-#function to place the pirate's starting place randomly
+# function to place the pirate's starting place randomly
 def place_pirate():
     turtle.speed(2)
     turtle.showturtle()
@@ -84,7 +84,7 @@ def place_pirate():
     turtle.goto(turtle_x, turtle_y)
     turtle.pendown()
 
-#function to move the pirate with loops and if/else
+# function to move the pirate with loops and if/else
 def move():
     global days_left
     for _ in range(days_left):
@@ -102,40 +102,42 @@ def move():
         
         days_left -= 1
         xpos, ypos = turtle.position()
+        
         if check_north_blue(xpos, ypos):
-            if not visited_seas[0]:
+            if visited_seas[0] == False:
                 visited_seas[0] = True
                 turtle.textinput("You're in the North Blue!", "You need to explore the entire sea to find the One Piece!")
-        if check_east_blue(xpos, ypos):
-            if not visited_seas[1]:
+        elif check_east_blue(xpos, ypos):
+            if visited_seas[1] == False:
                 visited_seas[1] = True
                 turtle.textinput("You're in the East Blue!", "You need to explore the entire sea to find the One Piece!")
-        if check_south_blue(xpos, ypos):
-            if not visited_seas[2]:
+        elif check_south_blue(xpos, ypos):
+            if visited_seas[2] == False:
                 visited_seas[2] = True
                 turtle.textinput("You're in the South Blue!", "You need to explore the entire sea to find the One Piece!")
-        if check_west_blue(xpos, ypos):
-            if not visited_seas[3]:
+        elif check_west_blue(xpos, ypos):
+            if visited_seas[3] == False:
                 visited_seas[3] = True
                 turtle.textinput("You're in the West Blue!", "You need to explore the entire sea to find the One Piece!")
 
-        #check if all the seas have been visited
-        all_visited = True
-        for sea in visited_seas:
-            if not sea:
-                all_visited = False
-                break
-
-        if all_visited:
+        # check if all the seas have been visited
+        if visited_seas[0] == True and visited_seas[1] == True and visited_seas[2] == True and visited_seas[3] == True:
             one_piece()
             return
 
-#function check if the user has found the One Piece to win the game
+    # When user does not trigger one_piece by 30 moves
+    answer = turtle.textinput("Out of supplies!", "Re-stock and try again?")
+    if answer == None or answer == "cancel" or days_left < 1:
+        turtle.textinput("Okay, until next time!", "You'll be King of the Pirates someday. Click Cancel to exit.")
+    else:
+        turtle.reset()
+
+# function check if the user has found the One Piece to win the game
 def one_piece():
     turtle.textinput("You've found the One Piece!", "Congrats! You're now the Pirate King!")
     return
 
-#main function to call all other functions and run the game
+# main function to call all other functions and run the game
 def main():
     turtle.bgcolor("DodgerBlue3")
     turtle.textinput("Travel all of the Blue Sea to reach the Grand Line and find the One Piece, the ultimate treasure!", "You have 30 days (moves) to search the four seas to find the Grand Line and get the One Piece before all the ship's supplies run out! Click OK to start!")
